@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ModeloSeguro.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CIUDAD">
+          <Key>
+            <PropertyRef Name="ID_CIUDAD" />
+          </Key>
+          <Property Name="ID_CIUDAD" Type="number" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="40" Nullable="false" />
+          <Property Name="REGION_ID_REGION" Type="number" Precision="2" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="ID_CLIENTE" />
+          </Key>
+          <Property Name="ID_CLIENTE" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="RUT" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="PASS" Type="varchar2" MaxLength="200" Nullable="false" />
+          <Property Name="NOMBRES" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="APELLIDOS" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="CORREO" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="FECHA_NACIMIENTO" Type="date" Nullable="false" />
+          <Property Name="DIRECCION" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="VEHICULO_ID_VEHICULO" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="SEGURO_ID_SEGURO" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="ID_CIUDAD" Type="number" Precision="3" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COBERTURA">
+          <Key>
+            <PropertyRef Name="ID_COBERTURA" />
+          </Key>
+          <Property Name="ID_COBERTURA" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="PERDIDA_TOTAL" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="DANO_TERCEROS" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LIQUIDADOR">
+          <Key>
+            <PropertyRef Name="ID_LIQUIDADOR" />
+          </Key>
+          <Property Name="ID_LIQUIDADOR" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="RUT" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="PASS" Type="varchar2" MaxLength="200" Nullable="false" />
+          <Property Name="NOMBRES" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="APELLIDOS" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="CORREO" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="FECHA_NACIMIENTO" Type="date" Nullable="false" />
+          <Property Name="DIRECCION" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="ID_CIUDAD" Type="number" Precision="3" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MARCA">
+          <Key>
+            <PropertyRef Name="ID_MARCA" />
+          </Key>
+          <Property Name="ID_MARCA" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MODELO">
+          <Key>
+            <PropertyRef Name="ID_MODELO" />
+          </Key>
+          <Property Name="ID_MODELO" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="40" Nullable="false" />
+          <Property Name="MARCA_ID_MARCA" Type="varchar2" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REGION">
+          <Key>
+            <PropertyRef Name="ID_REGION" />
+          </Key>
+          <Property Name="ID_REGION" Type="number" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SINIESTRO">
+          <Key>
+            <PropertyRef Name="ID_SINIESTRO" />
+          </Key>
+          <Property Name="ID_SINIESTRO" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="FECHA_TERMINO" Type="date" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="DEDUCIBLE_UF" Type="number" Precision="2" Scale="2" Nullable="false" />
+          <Property Name="COSTE_REPARACION" Type="number" Precision="10" Scale="0" />
+          <Property Name="CLIENTE_ID_CLIENTE" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="LIQUIDADOR_ID_LIQUIDADOR" Type="varchar2" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VEHICULO">
+          <Key>
+            <PropertyRef Name="ID_VEHICULO" />
+          </Key>
+          <Property Name="ID_VEHICULO" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="PATENTE" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="ANO" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="VALOR_FISCAL" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="ID_MODELO" Type="varchar2" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="CIUDAD_REGION_FK">
+          <End Role="REGION" Type="Self.REGION" Multiplicity="1" />
+          <End Role="CIUDAD" Type="Self.CIUDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REGION">
+              <PropertyRef Name="ID_REGION" />
+            </Principal>
+            <Dependent Role="CIUDAD">
+              <PropertyRef Name="REGION_ID_REGION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CLIENTE_VEHICULO_FK">
+          <End Role="VEHICULO" Type="Self.VEHICULO" Multiplicity="1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEHICULO">
+              <PropertyRef Name="ID_VEHICULO" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="VEHICULO_ID_VEHICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MODELO_MARCA_FK">
+          <End Role="MARCA" Type="Self.MARCA" Multiplicity="1" />
+          <End Role="MODELO" Type="Self.MODELO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARCA">
+              <PropertyRef Name="ID_MARCA" />
+            </Principal>
+            <Dependent Role="MODELO">
+              <PropertyRef Name="MARCA_ID_MARCA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SINIESTRO_CLIENTE_FK">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="SINIESTRO" Type="Self.SINIESTRO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Principal>
+            <Dependent Role="SINIESTRO">
+              <PropertyRef Name="CLIENTE_ID_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SINIESTRO_LIQUIDADOR_FK">
+          <End Role="LIQUIDADOR" Type="Self.LIQUIDADOR" Multiplicity="1" />
+          <End Role="SINIESTRO" Type="Self.SINIESTRO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIQUIDADOR">
+              <PropertyRef Name="ID_LIQUIDADOR" />
+            </Principal>
+            <Dependent Role="SINIESTRO">
+              <PropertyRef Name="LIQUIDADOR_ID_LIQUIDADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModeloSeguroStoreContainer">
+          <EntitySet Name="CIUDAD" EntityType="Self.CIUDAD" Schema="DARKMEYER" store:Type="Tables" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="DARKMEYER" store:Type="Tables" />
+          <EntitySet Name="COBERTURA" EntityType="Self.COBERTURA" Schema="DARKMEYER" store:Type="Tables" />
+          <EntitySet Name="LIQUIDADOR" EntityType="Self.LIQUIDADOR" Schema="DARKMEYER" store:Type="Tables" />
+          <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="DARKMEYER" store:Type="Tables" />
+          <EntitySet Name="MODELO" EntityType="Self.MODELO" Schema="DARKMEYER" store:Type="Tables" />
+          <EntitySet Name="REGION" EntityType="Self.REGION" Schema="DARKMEYER" store:Type="Tables" />
+          <EntitySet Name="SINIESTRO" EntityType="Self.SINIESTRO" Schema="DARKMEYER" store:Type="Tables" />
+          <EntitySet Name="VEHICULO" EntityType="Self.VEHICULO" Schema="DARKMEYER" store:Type="Tables" />
+          <AssociationSet Name="CIUDAD_REGION_FK" Association="Self.CIUDAD_REGION_FK">
+            <End Role="REGION" EntitySet="REGION" />
+            <End Role="CIUDAD" EntitySet="CIUDAD" />
+          </AssociationSet>
+          <AssociationSet Name="CLIENTE_VEHICULO_FK" Association="Self.CLIENTE_VEHICULO_FK">
+            <End Role="VEHICULO" EntitySet="VEHICULO" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="MODELO_MARCA_FK" Association="Self.MODELO_MARCA_FK">
+            <End Role="MARCA" EntitySet="MARCA" />
+            <End Role="MODELO" EntitySet="MODELO" />
+          </AssociationSet>
+          <AssociationSet Name="SINIESTRO_CLIENTE_FK" Association="Self.SINIESTRO_CLIENTE_FK">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="SINIESTRO" EntitySet="SINIESTRO" />
+          </AssociationSet>
+          <AssociationSet Name="SINIESTRO_LIQUIDADOR_FK" Association="Self.SINIESTRO_LIQUIDADOR_FK">
+            <End Role="LIQUIDADOR" EntitySet="LIQUIDADOR" />
+            <End Role="SINIESTRO" EntitySet="SINIESTRO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModeloSeguro" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CIUDAD">
+          <Key>
+            <PropertyRef Name="ID_CIUDAD" />
+          </Key>
+          <Property Name="ID_CIUDAD" Type="Int16" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="REGION_ID_REGION" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="REGION" Relationship="Self.CIUDAD_REGION_FK" FromRole="CIUDAD" ToRole="REGION" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="ID_CLIENTE" />
+          </Key>
+          <Property Name="ID_CLIENTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RUT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDOS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORREO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FECHA_NACIMIENTO" Type="DateTime" Nullable="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VEHICULO_ID_VEHICULO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SEGURO_ID_SEGURO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_CIUDAD" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="VEHICULO" Relationship="Self.CLIENTE_VEHICULO_FK" FromRole="CLIENTE" ToRole="VEHICULO" />
+          <NavigationProperty Name="SINIESTRO" Relationship="Self.SINIESTRO_CLIENTE_FK" FromRole="CLIENTE" ToRole="SINIESTRO" />
+        </EntityType>
+        <EntityType Name="COBERTURA">
+          <Key>
+            <PropertyRef Name="ID_COBERTURA" />
+          </Key>
+          <Property Name="ID_COBERTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PERDIDA_TOTAL" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DANO_TERCEROS" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LIQUIDADOR">
+          <Key>
+            <PropertyRef Name="ID_LIQUIDADOR" />
+          </Key>
+          <Property Name="ID_LIQUIDADOR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RUT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDOS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORREO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FECHA_NACIMIENTO" Type="DateTime" Nullable="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_CIUDAD" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="SINIESTRO" Relationship="Self.SINIESTRO_LIQUIDADOR_FK" FromRole="LIQUIDADOR" ToRole="SINIESTRO" />
+        </EntityType>
+        <EntityType Name="MARCA">
+          <Key>
+            <PropertyRef Name="ID_MARCA" />
+          </Key>
+          <Property Name="ID_MARCA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MODELO" Relationship="Self.MODELO_MARCA_FK" FromRole="MARCA" ToRole="MODELO" />
+        </EntityType>
+        <EntityType Name="MODELO">
+          <Key>
+            <PropertyRef Name="ID_MODELO" />
+          </Key>
+          <Property Name="ID_MODELO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MARCA_ID_MARCA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MARCA" Relationship="Self.MODELO_MARCA_FK" FromRole="MODELO" ToRole="MARCA" />
+        </EntityType>
+        <EntityType Name="REGION">
+          <Key>
+            <PropertyRef Name="ID_REGION" />
+          </Key>
+          <Property Name="ID_REGION" Type="Int16" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CIUDAD" Relationship="Self.CIUDAD_REGION_FK" FromRole="REGION" ToRole="CIUDAD" />
+        </EntityType>
+        <EntityType Name="SINIESTRO">
+          <Key>
+            <PropertyRef Name="ID_SINIESTRO" />
+          </Key>
+          <Property Name="ID_SINIESTRO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" />
+          <Property Name="FECHA_TERMINO" Type="DateTime" />
+          <Property Name="ESTADO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DEDUCIBLE_UF" Type="Decimal" Precision="2" Scale="2" Nullable="false" />
+          <Property Name="COSTE_REPARACION" Type="Int32" />
+          <Property Name="CLIENTE_ID_CLIENTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LIQUIDADOR_ID_LIQUIDADOR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.SINIESTRO_CLIENTE_FK" FromRole="SINIESTRO" ToRole="CLIENTE" />
+          <NavigationProperty Name="LIQUIDADOR" Relationship="Self.SINIESTRO_LIQUIDADOR_FK" FromRole="SINIESTRO" ToRole="LIQUIDADOR" />
+        </EntityType>
+        <EntityType Name="VEHICULO">
+          <Key>
+            <PropertyRef Name="ID_VEHICULO" />
+          </Key>
+          <Property Name="ID_VEHICULO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PATENTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ANO" Type="Int16" Nullable="false" />
+          <Property Name="VALOR_FISCAL" Type="Int32" Nullable="false" />
+          <Property Name="ID_MODELO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.CLIENTE_VEHICULO_FK" FromRole="VEHICULO" ToRole="CLIENTE" />
+        </EntityType>
+        <Association Name="CIUDAD_REGION_FK">
+          <End Role="REGION" Type="Self.REGION" Multiplicity="1" />
+          <End Role="CIUDAD" Type="Self.CIUDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REGION">
+              <PropertyRef Name="ID_REGION" />
+            </Principal>
+            <Dependent Role="CIUDAD">
+              <PropertyRef Name="REGION_ID_REGION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CLIENTE_VEHICULO_FK">
+          <End Role="VEHICULO" Type="Self.VEHICULO" Multiplicity="1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEHICULO">
+              <PropertyRef Name="ID_VEHICULO" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="VEHICULO_ID_VEHICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SINIESTRO_CLIENTE_FK">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="SINIESTRO" Type="Self.SINIESTRO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Principal>
+            <Dependent Role="SINIESTRO">
+              <PropertyRef Name="CLIENTE_ID_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SINIESTRO_LIQUIDADOR_FK">
+          <End Role="LIQUIDADOR" Type="Self.LIQUIDADOR" Multiplicity="1" />
+          <End Role="SINIESTRO" Type="Self.SINIESTRO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIQUIDADOR">
+              <PropertyRef Name="ID_LIQUIDADOR" />
+            </Principal>
+            <Dependent Role="SINIESTRO">
+              <PropertyRef Name="LIQUIDADOR_ID_LIQUIDADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MODELO_MARCA_FK">
+          <End Role="MARCA" Type="Self.MARCA" Multiplicity="1" />
+          <End Role="MODELO" Type="Self.MODELO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARCA">
+              <PropertyRef Name="ID_MARCA" />
+            </Principal>
+            <Dependent Role="MODELO">
+              <PropertyRef Name="MARCA_ID_MARCA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SeguroEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CIUDAD" EntityType="Self.CIUDAD" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+          <EntitySet Name="COBERTURA" EntityType="Self.COBERTURA" />
+          <EntitySet Name="LIQUIDADOR" EntityType="Self.LIQUIDADOR" />
+          <EntitySet Name="MARCA" EntityType="Self.MARCA" />
+          <EntitySet Name="MODELO" EntityType="Self.MODELO" />
+          <EntitySet Name="REGION" EntityType="Self.REGION" />
+          <EntitySet Name="SINIESTRO" EntityType="Self.SINIESTRO" />
+          <EntitySet Name="VEHICULO" EntityType="Self.VEHICULO" />
+          <AssociationSet Name="CIUDAD_REGION_FK" Association="Self.CIUDAD_REGION_FK">
+            <End Role="REGION" EntitySet="REGION" />
+            <End Role="CIUDAD" EntitySet="CIUDAD" />
+          </AssociationSet>
+          <AssociationSet Name="CLIENTE_VEHICULO_FK" Association="Self.CLIENTE_VEHICULO_FK">
+            <End Role="VEHICULO" EntitySet="VEHICULO" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="SINIESTRO_CLIENTE_FK" Association="Self.SINIESTRO_CLIENTE_FK">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="SINIESTRO" EntitySet="SINIESTRO" />
+          </AssociationSet>
+          <AssociationSet Name="SINIESTRO_LIQUIDADOR_FK" Association="Self.SINIESTRO_LIQUIDADOR_FK">
+            <End Role="LIQUIDADOR" EntitySet="LIQUIDADOR" />
+            <End Role="SINIESTRO" EntitySet="SINIESTRO" />
+          </AssociationSet>
+          <AssociationSet Name="MODELO_MARCA_FK" Association="Self.MODELO_MARCA_FK">
+            <End Role="MARCA" EntitySet="MARCA" />
+            <End Role="MODELO" EntitySet="MODELO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModeloSeguroStoreContainer" CdmEntityContainer="SeguroEntities">
+          <EntitySetMapping Name="CIUDAD">
+            <EntityTypeMapping TypeName="ModeloSeguro.CIUDAD">
+              <MappingFragment StoreEntitySet="CIUDAD">
+                <ScalarProperty Name="ID_CIUDAD" ColumnName="ID_CIUDAD" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="REGION_ID_REGION" ColumnName="REGION_ID_REGION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTE">
+            <EntityTypeMapping TypeName="ModeloSeguro.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="PASS" ColumnName="PASS" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="FECHA_NACIMIENTO" ColumnName="FECHA_NACIMIENTO" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="VEHICULO_ID_VEHICULO" ColumnName="VEHICULO_ID_VEHICULO" />
+                <ScalarProperty Name="SEGURO_ID_SEGURO" ColumnName="SEGURO_ID_SEGURO" />
+                <ScalarProperty Name="ID_CIUDAD" ColumnName="ID_CIUDAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COBERTURA">
+            <EntityTypeMapping TypeName="ModeloSeguro.COBERTURA">
+              <MappingFragment StoreEntitySet="COBERTURA">
+                <ScalarProperty Name="ID_COBERTURA" ColumnName="ID_COBERTURA" />
+                <ScalarProperty Name="PERDIDA_TOTAL" ColumnName="PERDIDA_TOTAL" />
+                <ScalarProperty Name="DANO_TERCEROS" ColumnName="DANO_TERCEROS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LIQUIDADOR">
+            <EntityTypeMapping TypeName="ModeloSeguro.LIQUIDADOR">
+              <MappingFragment StoreEntitySet="LIQUIDADOR">
+                <ScalarProperty Name="ID_LIQUIDADOR" ColumnName="ID_LIQUIDADOR" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="PASS" ColumnName="PASS" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="FECHA_NACIMIENTO" ColumnName="FECHA_NACIMIENTO" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="ID_CIUDAD" ColumnName="ID_CIUDAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MARCA">
+            <EntityTypeMapping TypeName="ModeloSeguro.MARCA">
+              <MappingFragment StoreEntitySet="MARCA">
+                <ScalarProperty Name="ID_MARCA" ColumnName="ID_MARCA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MODELO">
+            <EntityTypeMapping TypeName="ModeloSeguro.MODELO">
+              <MappingFragment StoreEntitySet="MODELO">
+                <ScalarProperty Name="ID_MODELO" ColumnName="ID_MODELO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="MARCA_ID_MARCA" ColumnName="MARCA_ID_MARCA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGION">
+            <EntityTypeMapping TypeName="ModeloSeguro.REGION">
+              <MappingFragment StoreEntitySet="REGION">
+                <ScalarProperty Name="ID_REGION" ColumnName="ID_REGION" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SINIESTRO">
+            <EntityTypeMapping TypeName="ModeloSeguro.SINIESTRO">
+              <MappingFragment StoreEntitySet="SINIESTRO">
+                <ScalarProperty Name="ID_SINIESTRO" ColumnName="ID_SINIESTRO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="FECHA_TERMINO" ColumnName="FECHA_TERMINO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="DEDUCIBLE_UF" ColumnName="DEDUCIBLE_UF" />
+                <ScalarProperty Name="COSTE_REPARACION" ColumnName="COSTE_REPARACION" />
+                <ScalarProperty Name="CLIENTE_ID_CLIENTE" ColumnName="CLIENTE_ID_CLIENTE" />
+                <ScalarProperty Name="LIQUIDADOR_ID_LIQUIDADOR" ColumnName="LIQUIDADOR_ID_LIQUIDADOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VEHICULO">
+            <EntityTypeMapping TypeName="ModeloSeguro.VEHICULO">
+              <MappingFragment StoreEntitySet="VEHICULO">
+                <ScalarProperty Name="ID_VEHICULO" ColumnName="ID_VEHICULO" />
+                <ScalarProperty Name="PATENTE" ColumnName="PATENTE" />
+                <ScalarProperty Name="ANO" ColumnName="ANO" />
+                <ScalarProperty Name="VALOR_FISCAL" ColumnName="VALOR_FISCAL" />
+                <ScalarProperty Name="ID_MODELO" ColumnName="ID_MODELO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

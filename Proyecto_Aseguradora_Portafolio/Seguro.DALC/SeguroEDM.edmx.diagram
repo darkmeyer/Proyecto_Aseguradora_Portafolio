@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8e9156e034d24deda8314a1defe1d191" Name="Diagram1">
+        <EntityTypeShape EntityType="ModeloSeguro.CIUDAD" Width="1.5" PointX="8" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloSeguro.CLIENTE" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloSeguro.COBERTURA" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloSeguro.LIQUIDADOR" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloSeguro.MARCA" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloSeguro.MODELO" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloSeguro.REGION" Width="1.5" PointX="5.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloSeguro.SINIESTRO" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloSeguro.VEHICULO" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="ModeloSeguro.CIUDAD_REGION_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloSeguro.CLIENTE_VEHICULO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloSeguro.SINIESTRO_CLIENTE_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloSeguro.SINIESTRO_LIQUIDADOR_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloSeguro.MODELO_MARCA_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
