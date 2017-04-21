@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Seguro.Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,27 @@ namespace Seguro.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            DatosCliente();
+        }
 
+        private void DatosCliente()
+        {
+
+            ServicioSeguro.ServicioSeguroClient seguro = new ServicioSeguro.ServicioSeguroClient();
+
+            string rut = (string)Session.Contents["rut"];
+
+            Cliente cliente = new Cliente()
+            {
+                Rut = rut
+            };
+
+            string xml = cliente.Serializar();
+            xml = seguro.leerCliente(xml);
+            cliente = new Cliente(xml);            
+
+            lblNombre.Text = cliente.Nombres + " " + cliente.Apellidos;
+            lblCiudad.Text = cliente.Ciudad.Nombre;
         }
     }
 }

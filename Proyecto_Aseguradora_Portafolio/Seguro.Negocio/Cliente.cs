@@ -20,7 +20,7 @@ namespace Seguro.Negocio
         public string Direccion { get; set; }
         public string IdVehiculo { get; set; }
         public string IdSeguro { get; set; }
-        public int IdCiudad { get; set; }
+        public Ciudad Ciudad { get; set; }
 
 
 
@@ -42,7 +42,7 @@ namespace Seguro.Negocio
             this.Direccion = cliente.Direccion;
             this.IdVehiculo = cliente.IdVehiculo;
             this.IdSeguro = cliente.IdSeguro;
-            this.IdCiudad = cliente.IdCiudad;
+            this.Ciudad = cliente.Ciudad;
         }
 
         public string Serializar()
@@ -68,7 +68,12 @@ namespace Seguro.Negocio
                 this.Direccion = cli.DIRECCION;
                 this.IdVehiculo = cli.VEHICULO_ID_VEHICULO;
                 this.IdSeguro = cli.SEGURO_ID_SEGURO;
-                this.IdCiudad = cli.ID_CIUDAD;
+                Ciudad ciudad = new Ciudad()
+                {
+                    IdCiudad = cli.ID_CIUDAD
+                };
+                ciudad.leer();
+                this.Ciudad = ciudad;
 
                 return true;
             }
