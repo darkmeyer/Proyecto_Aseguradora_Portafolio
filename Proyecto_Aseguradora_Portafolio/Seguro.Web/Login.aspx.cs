@@ -18,14 +18,20 @@ namespace Seguro.Web
 
         protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
         {
-            Cliente cli = new Cliente();
-            cli.Rut = Login1.UserName;
-            cli.Pass = Login1.Password;
+            ServicioSeguro.ServicioSeguroClient seguro = new ServicioSeguro.ServicioSeguroClient();
 
-            cli.Leer();
+            Cliente cli = new Cliente()
+            {
+                Rut = Login1.UserName,
+                Pass = Login1.Password
+            };
+
+            string xml = cli.Serializar();
+            xml = seguro.leerCliente(xml);
 
             if (cli.validarCliente())
             {
+                Session["cliente"] = new Cliente(xml);
                 e.Authenticated = true;
             }
             else

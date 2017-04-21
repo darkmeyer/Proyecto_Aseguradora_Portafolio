@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Seguro.Negocio
 {
@@ -27,12 +29,37 @@ namespace Seguro.Negocio
 
         }
 
+        public Cliente(string xml)
+        {
+            XmlSerializer serializador = new XmlSerializer(typeof(Cliente));
+            StringReader reader = new StringReader(xml);
+            Cliente cliente = (Cliente)serializador.Deserialize(reader);
+            this.Rut = cliente.Rut;
+            this.Nombres = cliente.Nombres;
+            this.Apellidos = cliente.Apellidos;
+            this.Correo = cliente.Correo;
+            this.FechaNacimiento = cliente.FechaNacimiento;
+            this.Direccion = cliente.Direccion;
+            this.IdVehiculo = cliente.IdVehiculo;
+            this.IdSeguro = cliente.IdSeguro;
+            this.IdCiudad = cliente.IdCiudad;
+        }
+
+        public string Serializar()
+        {
+            XmlSerializer serializador = new XmlSerializer(typeof(Cliente));
+            StringWriter writer = new StringWriter();
+            serializador.Serialize(writer, this);
+            writer.Close();
+            return writer.ToString();
+        }
+
 
         public bool Leer()
         {
             try
             {
-                Seguro.DALC.CLIENTE cli = CommonBC.ModeloSeguro.CLIENTE.FirstOrDefault(c => c.RUT == this.Rut);
+                Seguro.DALC.CLIENTE cli = CommonBC.ModeloSeguro.CLIENTE.Where(c => c.RUT.Equals(this.Rut)).FirstOrDefault();
                 this.Rut = cli.RUT;
                 this.Nombres = cli.NOMBRES;
                 this.Apellidos = cli.APELLIDOS;

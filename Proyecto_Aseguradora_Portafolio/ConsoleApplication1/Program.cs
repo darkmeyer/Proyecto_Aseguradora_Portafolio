@@ -12,14 +12,18 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            //Pruebas de conexion
+            try
+            {
+                Seguro.DALC.CLIENTE cli = CommonBC.ModeloSeguro.CLIENTE.FirstOrDefault();
+                
+                Console.WriteLine(cli.NOMBRES);               
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
-
-            Cliente cli = new Cliente();
-            cli.Rut = "17256155-1";
-
-            cli.Leer();
-
-            Console.WriteLine(cli.Apellidos);
             Console.ReadLine();
 
         }
